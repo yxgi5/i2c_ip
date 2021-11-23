@@ -23,5 +23,5 @@ i2c_hub paly as one slave / two (and more) master bridge, even multi-master if T
 
 ## xgpio_to_i2c
 
-In bd wrapper, tri-state io can be interface to i2c port by this ip, hence, don't need to modify wrapper, is it better!?
+In bd, tri-state io can be interface to i2c port by this ip, hence, don't need to modify wrapper, is it better!?
 
