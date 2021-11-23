@@ -17,6 +17,6 @@ i2c_extender makes a single master in fpga can access i2c device on diffierent f
 
 ## i2c_hub
 
-i2c_hub paly as one slave / tow (and more) master bridge.
+i2c_hub paly as one slave / tow (and more) master bridge, even multi-master if Time Division Multiplexing Access
 
 ![i2c_hub](./doc/i2c_hub.jpg)
