@@ -21,19 +21,31 @@ module i2c_hub
 	input     downstream_sda_I,
 	output    downstream_sda_O
 );
+//assign downstream_scl_T = upstream0_scl_T & upstream1_scl_T;
+//assign downstream_scl_O = (upstream0_scl_T ? 1'b1 : upstream0_scl_I) & (upstream1_scl_T ? 1'b1 : upstream1_scl_I);
+//assign downstream_sda_T = upstream0_sda_T & upstream1_sda_T;
+//assign downstream_sda_O = (upstream0_sda_T ? 1'b1 : upstream0_sda_I) & (upstream1_sda_T ? 1'b1 : upstream1_sda_I);
+// follows for spec proj
+//assign upstream0_scl_O = downstream_scl_I;
+//assign upstream0_sda_O = downstream_sda_I;
+//assign upstream1_scl_O = downstream_scl_I;
+//assign upstream1_sda_O = downstream_sda_I;
+//// follows for spec proj
+////assign upstream0_scl_O = downstream_scl_I & upstream1_scl_I;
+////assign upstream0_sda_O = downstream_sda_I & upstream1_sda_I;
+////assign upstream1_scl_O = downstream_scl_I & upstream0_scl_I;
+////assign upstream1_sda_O = downstream_sda_I & upstream0_sda_I;
+
 assign downstream_scl_T = upstream0_scl_T & upstream1_scl_T;
 assign downstream_scl_O = (upstream0_scl_T ? 1'b1 : upstream0_scl_I) & (upstream1_scl_T ? 1'b1 : upstream1_scl_I);
+assign upstream0_scl_O=((upstream0_scl_T & upstream1_scl_T) ? downstream_scl_I : 1'b1) & (upstream1_scl_T ? 1'b1 : upstream1_scl_I);
+assign upstream1_scl_O=((upstream0_scl_T & upstream1_scl_T) ? downstream_scl_I : 1'b1) & (upstream0_scl_T ? 1'b1 : upstream0_scl_I);
+
 assign downstream_sda_T = upstream0_sda_T & upstream1_sda_T;
 assign downstream_sda_O = (upstream0_sda_T ? 1'b1 : upstream0_sda_I) & (upstream1_sda_T ? 1'b1 : upstream1_sda_I);
-assign upstream0_scl_O = downstream_scl_I;
-assign upstream0_sda_O = downstream_sda_I;
-assign upstream1_scl_O = downstream_scl_I;
-assign upstream1_sda_O = downstream_sda_I;
-// follows for spec proj
-//assign upstream0_scl_O = downstream_scl_I & upstream1_scl_I;
-//assign upstream0_sda_O = downstream_sda_I & upstream1_sda_I;
-//assign upstream1_scl_O = downstream_scl_I & upstream0_scl_I;
-//assign upstream1_sda_O = downstream_sda_I & upstream0_sda_I;
+assign upstream0_sda_O=((upstream0_sda_T & upstream1_sda_T) ? downstream_sda_I : 1'b1) & (upstream1_sda_T ? 1'b1 : upstream1_sda_I);
+assign upstream1_sda_O=((upstream0_sda_T & upstream1_sda_T) ? downstream_sda_I : 1'b1) & (upstream0_sda_T ? 1'b1 : upstream0_sda_I);
+// slave device, upstream1_scl_T=1, upstream1_scl_I=1 即可
 endmodule
 
 
